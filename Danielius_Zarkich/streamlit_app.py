@@ -66,6 +66,14 @@ def main() -> None:
     shipping_eta = contract_sign + timedelta(days=merged["tt_days"])
     delivery_eta = contract_sign + timedelta(days=merged["recommended_lead_days"])
 
+    m1, m2, m3 = st.columns(3)
+    with m1:
+        st.metric("Transit time (days)", merged["tt_days"])
+    with m2:
+        st.metric("POD offset (days)", merged["pod_offset_days"])
+    with m3:
+        st.metric("Recommended lead time (days)", merged["recommended_lead_days"])
+
     st.markdown("**ETAs from contract sign**")
     c1, c2 = st.columns(2)
     with c1:
@@ -89,9 +97,6 @@ def main() -> None:
             "Avoid proposing this as the customer delivery date."
         )
 
-    st.metric("Transit time (days)", merged["tt_days"])
-    st.metric("POD offset (days)", merged["pod_offset_days"])
-    st.metric("Recommended lead time (days)", merged["recommended_lead_days"])
     st.divider()
     st.markdown(
         f"| | |\n"
